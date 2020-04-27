@@ -5,15 +5,15 @@ const AboutPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   return (
     <div>
-      <header className="bg-white sm:flex sm:items-center sm:justify-between">
+      <header className="bg-white">
         <div className="flex justify-between items-center px-4 py-3">
           <div>
             <img className="h-8" src="/img/logo.svg" alt="Logo" />
           </div>
-          <div>
+          <div className="md:hidden">
             <button
               type="button"
-              className="sm:hidden block text-gray-600 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white transition duration-150 ease-in-out"
+              className="block text-gray-600 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white transition duration-150 ease-in-out"
               onClick={() => setIsMenuOpen(s => !s)}
             >
               <svg className="h-6 w-6 fill-current" viewBox="0 0 20 20">
@@ -29,10 +29,71 @@ const AboutPage = () => {
               </svg>
             </button>
           </div>
+          <div className="hidden md:block">
+            <nav className="flex space-x-8">
+              <div>
+                <button
+                  type="button"
+                  href="#"
+                  className="inline-flex justify-center text-base leading-6 space-x-2 font-medium text-gray-600"
+                >
+                  <span>Blog</span>
+                  <svg className="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                    <path
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                      fillRule="evenodd"
+                    ></path>
+                  </svg>
+                </button>
+                <div
+                  className="absolute max-w-3xl"
+                  style={{width: 'max-content'}}
+                >
+                  <div className="rounded-lg shadow-lg overflow-hidden">
+                    <div className="p-8 bg-white space-y-2 grid grid-cols-2 gap-8">
+                      <SingleMenu showDescription />
+                      <SingleMenu showDescription />
+                      <SingleMenu showDescription />
+                      <SingleMenu showDescription />
+                    </div>
+                    <div className="bg-gray-200 px-4 py-8">
+                      <button>Buy me a coffee</button>
+                      <p>H</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a
+                href="#"
+                className="inline-flex justify-center text-base leading-6 space-x-2 font-medium text-gray-600"
+              >
+                Learn
+              </a>
+              <a
+                href="#"
+                className="inline-flex justify-center text-base leading-6 space-x-2 font-medium text-gray-600"
+              >
+                Books
+              </a>
+              <a
+                href="#"
+                className="inline-flex justify-center text-base leading-6 space-x-2 font-medium text-gray-600"
+              >
+                Business
+              </a>
+              <a
+                href="#"
+                className="inline-flex justify-center text-base leading-6 space-x-2 font-medium text-gray-600"
+              >
+                Tech
+              </a>
+            </nav>
+          </div>
         </div>
 
         <div className="absolute p-2 top-0 inset-x-0">
-          {isMenuOpen ? (
+          {isMenuOpen && (
             <Transition
               show={isMenuOpen}
               enter="transition ease-out duration-100 transform"
@@ -47,8 +108,6 @@ const AboutPage = () => {
                 setIsMenuOpen={setIsMenuOpen}
               />
             </Transition>
-          ) : (
-            ''
           )}
         </div>
       </header>
@@ -69,7 +128,7 @@ const MobileMenu = ({setIsMenuOpen, isMenuOpen}) => {
             <div>
               <button
                 type="button"
-                className="sm:hidden block text-gray-600 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white transition duration-150 ease-in-out"
+                className="block text-gray-600 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white transition duration-150 ease-in-out"
                 onClick={() => setIsMenuOpen(s => !s)}
               >
                 <svg className="h-6 w-6 fill-current" viewBox="0 0 20 20">
@@ -82,7 +141,7 @@ const MobileMenu = ({setIsMenuOpen, isMenuOpen}) => {
               </button>
             </div>
           </div>
-          <div className="flex py-4">
+          <div className="flex py-4 w-64">
             <nav className="space-y-8">
               <SingleMenu />
               <SingleMenu />
@@ -123,15 +182,23 @@ const MobileMenu = ({setIsMenuOpen, isMenuOpen}) => {
   )
 }
 
-const SingleMenu = () => {
+const SingleMenu = ({showDescription}) => {
   return (
-    <a href="" className="flex items-center space-x-4">
+    <a href="" className="flex items-center md:items-start space-x-4">
       <div className="flex-shrink-0 h-12 w-12 rounded bg-indigo-500 flex justify-center items-center">
         <svg className="h-6 w-6 fill-current text-white" viewBox="0 0 20 20">
           <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"></path>
         </svg>
       </div>
-      <p className="text-gray-900 font-medium">Books</p>
+      <div>
+        <p className="text-gray-900 font-medium">Books</p>
+        {showDescription && (
+          <p className="text-xs text-gray-600 leading-5">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione
+            nostrum corporis accusantium dolorum. Ad, recusandae possimus?
+          </p>
+        )}
+      </div>
     </a>
   )
 }
